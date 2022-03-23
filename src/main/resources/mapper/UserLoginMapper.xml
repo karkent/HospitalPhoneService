@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace路径-->
+<mapper namespace="com.example.hospitalphoneservice.mapper.UserLoginMapper">
+    <select id="loginCheck" parameterType="com.example.hospitalphoneservice.bean.User" resultType="com.example.hospitalphoneservice.bean.User">
+        select * from tblstaff where sname = #{sname} and staffid = #{staffid}
+    </select>
+
+</mapper>

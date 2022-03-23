@@ -2,22 +2,31 @@ package com.example.hospitalphoneservice.bean;
 
 public class User {
 
-    private String username;
-    private String password;
+    private String sname;
+    private String staffid;
+    private String sjobnum;
 
-    public String getUsername() {
-        return username;
+    public String getSname() {
+        return sname;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setSname(String sname) {
+        this.sname = sname;
     }
 
-    public String getPassword() {
-        return password;
+    public String getStaffid() {
+        return staffid;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setStaffid(String staffid) {
+        this.staffid = staffid;
+    }
+
+    public String getSjobnum() {
+        return sjobnum;
+    }
+
+    public void setSjobnum(String sjobnum) {
+        this.sjobnum = sjobnum;
     }
 }
