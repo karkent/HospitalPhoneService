@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace路径-->
+<mapper namespace="com.example.hospitalphoneservice.mapper.TrashUpMapper">
+    <insert id="upTrash" parameterType="com.example.hospitalphoneservice.bean.UpTrashBean">
+        INSERT
+        INTO
+            tblmedicaltype
+            (state , typeid , weight , joinid ,did,collectdate,collectid,bagcode,boxcode,hid,depidemic)
+        VALUES
+               (#{state}, #{typeId},#{weight},#{staffid},#{dcode},#{time},#{collect},#{bag},#{boxcode},#{hName},#{depidemic})
+    </insert>
+
+</mapper>

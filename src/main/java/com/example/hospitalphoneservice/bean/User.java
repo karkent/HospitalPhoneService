@@ -5,6 +5,24 @@ public class User {
     private String sname;
     private String staffid;
     private String sjobnum;
+    private String collect;
+    private String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCollect() {
+        return collect;
+    }
+
+    public void setCollect(String collect) {
+        this.collect = collect;
+    }
 
     public String getSname() {
         return sname;

@@ -29,7 +29,6 @@ public class LoginImpl implements LoginServer {
             e.printStackTrace();
         }
         user.setSname(decode);
-        System.out.println(user.getSname()+"@"+user.getStaffid()+"@"+user.getSjobnum());
         List<User> users = userLoginMapper.loginCheck(user);
         if (users.size()>0){
             for (User useres:users) {
@@ -39,6 +38,7 @@ public class LoginImpl implements LoginServer {
             }
             return JSONObject.toJSONString(user);
         }else {
+            System.out.println("1");
             return "UnKnowUser";
         }
     }

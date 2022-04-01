@@ -1,10 +1,14 @@
 package com.example.hospitalphoneservice.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.hospitalphoneservice.server.impl.TrashUpImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class Trash {
@@ -12,8 +16,10 @@ public class Trash {
     TrashUpImpl trashUpImpl;
 
     @ResponseBody
-    @PostMapping("/upTrash") //二级接口
-    public boolean trashUp(String user,String trashUp,String boxCode){
-        return trashUpImpl.upTrash(user,trashUp,boxCode);
+    @PostMapping("/upTrash") //
+    public String trashUp(String upTrash){
+       String a = trashUpImpl.upTrash(JSONObject.parseObject(upTrash));
+        System.out.println(a+"@#$@#@#@#");
+       return a;
     }
 }

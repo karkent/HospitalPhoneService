@@ -24,9 +24,9 @@ public class UserUp {
            msg = loginImpl.LoginCheck(user);
            return msg;
        }catch (Exception e) {
-           System.out.println(e);
+           System.out.println(e+"@@@@");
        }
-       return "UnKnowUser";
+       return "FatalError";
     }
 
 }
