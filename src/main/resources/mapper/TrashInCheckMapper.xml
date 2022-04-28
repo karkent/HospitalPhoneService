@@ -5,10 +5,26 @@
 <!--namespace路径-->
 <mapper namespace="com.example.hospitalphoneservice.mapper.TrashInCheckMapper">
     <select id="trashNumCheck" parameterType="String" resultType="com.example.hospitalphoneservice.bean.Trash">
-        SELECT bagcode,boxcode FROM tblmedicaltype where collectid = #{userId} AND state = 6
+        SELECT bagcode,boxcode,weight,infoid FROM tblmedicaltype where collectid = #{userId} AND state = 6
     </select>
 
     <select id="waring"  resultType="com.example.hospitalphoneservice.bean.Waring">
         SELECT entererror,carweight FROM tblwarning
     </select>
+
+    <update id="trashTypeChange"  parameterType="com.example.hospitalphoneservice.bean.User">
+       update tblmedicaltype SET state = 7 where state = 6 and joinid = #{staffid}
+    </update>
+<!--        医废id 用户 id 时间 重量 -->
+    <insert id="trashInTable"  parameterType="java.util.List">
+        insert
+        into
+            tbltrashin
+            (infoid,enterid,enterweight,enterdate,spare1)
+            value
+        <foreach collection="list" item="item" index="index" separator="," >
+            (#{item.infoid},#{item.userId},#{item.weight},#{item.time},"0")
+        </foreach>
+    </insert>
+
 </mapper>

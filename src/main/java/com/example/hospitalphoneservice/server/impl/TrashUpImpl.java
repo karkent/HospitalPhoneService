@@ -1,16 +1,18 @@
 package com.example.hospitalphoneservice.server.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.hospitalphoneservice.bean.BoxCode;
 import com.example.hospitalphoneservice.bean.UpTrashBean;
 import com.example.hospitalphoneservice.bean.User;
-import com.example.hospitalphoneservice.bean.Trash;
 import com.example.hospitalphoneservice.mapper.TrashUpMapper;
 import com.example.hospitalphoneservice.server.TrashUp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -45,4 +47,32 @@ public class TrashUpImpl implements TrashUp {
             return "error"+f;
         }
     }
+    @Override
+    public String localTrash(String localTrash) {
+        JSONArray beans = JSONObject.parseArray(localTrash);
+        List<UpTrashBean> upTrashBeans = new ArrayList<>();
+        for (int i = 0; i < beans.size(); i++) {
+            UpTrashBean bean = new UpTrashBean();
+            JSONObject jsonObject=beans.getJSONObject(i);
+            bean.setState(jsonObject.getString("state"));
+            bean.setBag(jsonObject.getString("bag"));
+            bean.setBoxcode(jsonObject.getString("boxcode"));
+            bean.setCollect(jsonObject.getString("collect"));
+            bean.setDcode(jsonObject.getString("dcode"));
+            bean.setDepidemic(jsonObject.getString("depidemic"));
+            bean.setStaffid(jsonObject.getString("staffid"));
+            bean.setTime(jsonObject.getString("time"));
+            bean.setTypeId(jsonObject.getString("typeId"));
+            bean.sethName(jsonObject.getString("hName"));
+            bean.setWeight(jsonObject.getString("weight"));
+            upTrashBeans.add(bean);
+        }
+        int a  = trashUpMapper.localTrash(upTrashBeans);
+        if (a>0){
+            return String.valueOf(a);
+        }else {
+            return "false";
+        }
+    }
 }
+

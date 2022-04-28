@@ -4,8 +4,23 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace路径-->
 <mapper namespace="com.example.hospitalphoneservice.mapper.UserLoginMapper">
-<select id="loginCheck" parameterType="com.example.hospitalphoneservice.bean.User" resultType="com.example.hospitalphoneservice.bean.User">
-    select * from tblstaff where sname = #{sname} and staffid = #{staffid}
-</select>
+    <select id="loginCheck" parameterType="com.example.hospitalphoneservice.bean.User"
+            resultType="com.example.hospitalphoneservice.bean.User">
+        select *
+        from tblstaff
+        where staffid = #{staffid}
+    </select>
+
+    <select id="userStaff" parameterType="java.lang.Integer" resultType="com.example.hospitalphoneservice.bean.Staffrole">
+        SELECT * FROM tblstaffrole as tq INNER JOIN tblrole AS ty ON tq.roleid = ty.roleid WHERE tq.staffid = ${staffid}
+    </select>
+
+    <select id="hospital" parameterType="java.lang.Integer" resultType="com.example.hospitalphoneservice.bean.Hospital">
+        select * from tblhospitalinfo where hid = ${shid}
+    </select>
+
+    <select id="pda" parameterType="java.lang.Integer" resultType="com.example.hospitalphoneservice.bean.Pdarole">
+        select * from tblpdarole as pda inner join tblpdamenu as pdm on pda.menuid = pdm.menuid where roleid = ${roleid}
+    </select>
 
 </mapper>

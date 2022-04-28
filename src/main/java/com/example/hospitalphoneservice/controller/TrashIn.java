@@ -1,7 +1,7 @@
 package com.example.hospitalphoneservice.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.hospitalphoneservice.server.TrashInCheckServer;
-import com.example.hospitalphoneservice.server.impl.TrashInCheckImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,4 +16,13 @@ public class TrashIn {
     public String trashInCheck(String userId){
         return trashInCheck.boxNum(userId);
     }
+
+
+    @ResponseBody
+    @PostMapping("/trashIn") //二级接口
+    public String trashIn(String trashIn){
+        return trashInCheck.trashInMessage(trashIn);
+    }
+
+
 }

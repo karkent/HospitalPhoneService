@@ -13,4 +13,14 @@
                (#{state}, #{typeId},#{weight},#{staffid},#{dcode},#{time},#{collect},#{bag},#{boxcode},#{hName},#{depidemic})
     </insert>
 
+    <insert id="localTrash" parameterType="com.example.hospitalphoneservice.bean.UpTrashBean">
+        INSERT
+        INTO
+            tblmedicaltype
+        (state , typeid , weight , joinid ,did,collectdate,collectid,bagcode,boxcode,hid,depidemic)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (#{item.state}, #{item.typeId},#{item.weight},#{item.staffid},#{item.dcode},#{item.time},#{item.collect},#{item.bag},#{item.boxcode},#{item.hName},#{item.depidemic})
+        </foreach>
+    </insert>
 </mapper>

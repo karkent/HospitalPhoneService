@@ -12,6 +12,33 @@ public class Trash {
     private String typeId;
     private String bagcode;
     private String boxcode;
+    private String time;
+    private String infoid;
+    private String userId;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getInfoid() {
+        return infoid;
+    }
+
+    public void setInfoid(String infoid) {
+        this.infoid = infoid;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public String getBagcode() {
         return bagcode;
