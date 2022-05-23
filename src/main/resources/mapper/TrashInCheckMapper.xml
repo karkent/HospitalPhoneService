@@ -9,11 +9,11 @@
     </select>
 
     <select id="waring"  resultType="com.example.hospitalphoneservice.bean.Waring">
-        SELECT entererror,carweight FROM tblwarning
+        SELECT * FROM tblwarning
     </select>
 
     <update id="trashTypeChange"  parameterType="com.example.hospitalphoneservice.bean.User">
-       update tblmedicaltype SET state = 7 where state = 6 and joinid = #{staffid}
+       update tblmedicaltype SET state = 7 where state = 6 and collectid = #{collect}
     </update>
 <!--        医废id 用户 id 时间 重量 -->
     <insert id="trashInTable"  parameterType="java.util.List">

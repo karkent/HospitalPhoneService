@@ -1,10 +1,8 @@
 package com.example.hospitalphoneservice.server.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.hospitalphoneservice.bean.Hospital;
-import com.example.hospitalphoneservice.bean.Pdarole;
-import com.example.hospitalphoneservice.bean.Staffrole;
-import com.example.hospitalphoneservice.bean.User;
+import com.example.hospitalphoneservice.bean.*;
+import com.example.hospitalphoneservice.mapper.TrashInCheckMapper;
 import com.example.hospitalphoneservice.mapper.UserLoginMapper;
 import com.example.hospitalphoneservice.server.LoginServer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +20,8 @@ public class LoginImpl implements LoginServer {
 
     @Autowired
     UserLoginMapper userLoginMapper;
+    @Autowired
+    TrashInCheckMapper trashInCheckMapper;
 
     @Override
     public String LoginCheck(User user){
@@ -44,21 +44,26 @@ public class LoginImpl implements LoginServer {
                 user.setHid(useres.getHid());
             }
             //did 科室判断是否为后勤保障科室 hid 获取医院名字 staffrole表查菜单角色
+            Map<String,Object> map = new HashMap<>();
             if (Integer.valueOf(user.getSstate()) == 2){
-
                 List<Staffrole> staffroles = userLoginMapper.userStaff(Integer.parseInt(user.getStaffid()));
                 for (Staffrole staffrole:staffroles){
                     if (staffrole.getRolename().contains("后勤")||staffrole.getRolename().contains("收废")){
-                        Map<String,Object> map = new HashMap<>();
                          List<Hospital> hospital = userLoginMapper.hospital(Integer.parseInt(user.getHid()));
                          for (Hospital hospital1:hospital){
                             if (hospital1.getHstate().equals("2")){
                                 List<Pdarole> pdaroles = userLoginMapper.pda(Integer.parseInt(staffrole.getRoleid()));
+                                Waring warings = trashInCheckMapper.waring();
+                                if (warings.getRemoveboxkg().equals("是")){
+                                    map.put("waring",JSONObject.toJSONString(warings));
+                                }else {
+                                    warings.setBoxkg("0");
+                                    map.put("waring",JSONObject.toJSONString(warings));
+                                }
                                 map.put("pda",JSONObject.toJSONString(pdaroles));
                                 map.put("user",JSONObject.toJSONString(user));
                                 map.put("hospital",JSONObject.toJSONString(hospital1));
                                 System.out.println(JSONObject.toJSONString(map));
-                                return JSONObject.toJSONString(map);
                             }else {
                                 return "state";
                             }
@@ -70,7 +75,7 @@ public class LoginImpl implements LoginServer {
             }else {
                 return "state";
             }
-            return "FatalError";
+            return JSONObject.toJSONString(map);
         }else {
             System.out.println("1");
             return "UnKnowUser";

@@ -48,28 +48,25 @@ public class TrashInCheckImpl implements TrashInCheckServer {
     public String trashInMessage(String msg){
         JSONObject tMap = JSONObject.parseObject(msg);
         User user = JSONObject.parseObject(tMap.get("user").toString(),User.class);
-        Save save = JSONObject.parseObject(tMap.get("save").toString(),Save.class);
         List<Object> steam = JSONObject.parseArray(tMap.get("steam").toString());
-        List<Trash> trashes = trashInCheckMapper.trashNumCheck(user.getStaffid());
-        Double num = Double.parseDouble(String.valueOf(steam.get(2)))/Double.parseDouble(String.valueOf(trashes.size()));
-        for (Trash t:trashes) {
-            SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            t.setTime(dft.format(System.currentTimeMillis()));
-            t.setWeight(num.toString());
-            t.setUserId(user.getStaffid());
+        List<Trash> trashes = trashInCheckMapper.trashNumCheck(user.getCollect());
+        if (trashes.size()<=0){
+            return "暂无医废信息!";
+        }else {
+            Double num = Double.parseDouble(String.valueOf(steam.get(2)))/Double.parseDouble(String.valueOf(trashes.size()));
+            for (Trash t:trashes) {
+                SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                t.setTime(dft.format(System.currentTimeMillis()));
+                t.setWeight(num.toString());
+                t.setUserId(user.getStaffid());
+            }
+            int a = trashInCheckMapper.trashInTable(trashes);
+            int b = trashInCheckMapper.trashTypeChange(user);
+            if (a!=0&&b!=0){
+                return "上传成功";
+            }else {
+                return "上传失败";
+            }
         }
-        System.out.println(JSONObject.toJSONString(trashes)+"2313122131");
-        int a = trashInCheckMapper.trashInTable(trashes);
-        int b = trashInCheckMapper.trashTypeChange(user);
-        if (steam.get(0).equals("3")){
-            System.out.println(steam.get(1));
-        }
-        if (steam.get(0).equals("2")){
-            System.out.println(steam.get(1));
-        }
-        if (steam.get(0).equals("1")){
-            System.out.println(steam.get(1));
-        }
-        return "4555555";
     }
 }
